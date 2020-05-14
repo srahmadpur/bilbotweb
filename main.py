@@ -128,6 +128,7 @@ def getMessage():
 @server.route("/")
 def webhook():
     bot.remove_webhook()
+    print("Bura girdi")
     bot.set_webhook(url='https://bilbotweb.herokuapp.com/' + config.TOKEN)
     return "!", 200
 
