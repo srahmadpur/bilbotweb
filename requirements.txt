@@ -1,0 +1,9 @@
+beautifulsoup4==4.8.2
+logger==1.4
+pyTelegramBotAPI==3.6.7
+requests==2.20.0
+simplejson==3.17.0
+soupsieve==2.0
+Flask==1.1.2
+Flask-Session==0.3.1
+Flask-SQLAlchemy==2.4.1
