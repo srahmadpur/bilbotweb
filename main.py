@@ -60,14 +60,12 @@ def start_message(message):
 
     newuser = User(user_id=message.chat.id, username=message.chat.username, first_name=message.chat.first_name, last_name=message.chat.last_name)
     exists = User.query.get(newuser.user_id)
-    # exists = User.query.filter_by(user_id=newuser.user_id).get()
-    print(exists)
     if exists is None:
         db.session.add(newuser)
         db.session.commit()
-        newuser.clear()
+        del newuser
     else:
-        newuser.clear()
+        del newuser
 
     if cid not in knownUsers:
         knownUsers.append(cid)
