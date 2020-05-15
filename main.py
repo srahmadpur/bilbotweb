@@ -50,7 +50,7 @@ def start_message(message):
     newuser = User(id=message.chat.id, username=message.chat.username, first_name=message.chat.first_name, last_name=message.chat.last_name)
     exists = database.session.query(database.exists().where(User.id == message.chat.id)).scalar()
     print(exists)
-    if exists = True:
+    if exists is True:
         user.clear()
     else:
         database.session.add(newuser)
