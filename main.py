@@ -1,5 +1,6 @@
 import os
 from flask import Flask, request
+from flask_sqlalchemy import SQLAlchemy
 from models import *
 import telebot
 import config
@@ -33,6 +34,17 @@ bot.set_update_listener(listener)
 server = Flask(__name__)
 server.config["SQLALCHEMY_DATABASE_URI"] = config.db_url
 server.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+db = SQLAlchemy()
+
+
+class User(db.Model):
+    __tablename__ = "user"
+    user_id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String, unique=True)
+    first_name = db.Column(db.String, unique=False)
+    last_name = db.Column(db.String, unique=False)
+
+
 db.init_app(server)
 with server.app_context():
     db.create_all()
