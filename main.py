@@ -33,7 +33,7 @@ bot.set_update_listener(listener)
 server = Flask(__name__)
 server.config["SQLALCHEMY_DATABASE_URI"] = config.db_url
 server.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-db = SQLAlchemy()
+db = SQLAlchemy(server)
 db.init_app(server)
 
 class User(db.Model):
