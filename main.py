@@ -35,21 +35,14 @@ server = Flask(__name__)
 server.config["SQLALCHEMY_DATABASE_URI"] = config.db_url
 server.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy()
-
+db.init_app(server)
 
 class User(db.Model):
-    __tablename__ = "user"
+    __tablename__ = "users"
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True)
     first_name = db.Column(db.String, unique=False)
     last_name = db.Column(db.String, unique=False)
-
-
-db.init_app(server)
-with server.app_context():
-    db.create_all()
-
-
 
 
 
