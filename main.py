@@ -33,6 +33,9 @@ bot.set_update_listener(listener)
 server = Flask(__name__)
 server.config["SQLALCHEMY_DATABASE_URI"] = config.db_url
 server.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+server.config["SESSION_PERMANENT"] = False
+server.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+server.config["SESSION_TYPE"] = "filesystem"
 db = SQLAlchemy(server)
 db.init_app(server)
 
@@ -54,7 +57,11 @@ def start_message(message):
     markup.add(telebot.types.InlineKeyboardButton(text='Русский', callback_data="ru"))
     markup.add(telebot.types.InlineKeyboardButton(text='English', callback_data="en"))
     newuser = User(user_id=message.chat.id, username=message.chat.username, first_name=message.chat.first_name, last_name=message.chat.last_name)
-    exists = User.query.filter_by(user_id=newuser.user_id).get()
+    exists = User.query.get(newuser.user_id)
+
+
+
+    # exists = User.query.filter_by(user_id=newuser.user_id).get()
     print(exists)
     if exists is None:
         db.session.add(newuser)
