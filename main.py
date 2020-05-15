@@ -1,7 +1,6 @@
 import os
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
-from models import *
 import telebot
 import config
 import search_parser as sp
