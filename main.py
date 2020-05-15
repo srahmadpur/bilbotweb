@@ -1,6 +1,6 @@
 import os
 from flask import Flask, request
-from flask_sqlalchemy import SQLAlchemy
+from models import *
 import telebot
 import config
 import search_parser as sp
@@ -26,16 +26,15 @@ def listener(messages):
 
 
 bot = telebot.TeleBot(config.TOKEN)
-server = Flask(__name__)
-server.config["SQLALCHEMY_DATABASE_URI"] = config.db
-database = SQLAlchemy(server)
 bot.set_update_listener(listener)
 
-class User(database.Model):
-    user_id = database.Column(database.Integer, primary_key=True)
-    username = database.Column(database.String, unique=True)
-    first_name = database.Column(database.String, unique=False)
-    last_name = database.Column(database.String, unique=False)
+
+
+server = Flask(__name__)
+server.config["SQLALCHEMY_DATABASE_URI"] = config.db_url
+server.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+
 
 
 
@@ -48,13 +47,13 @@ def start_message(message):
     markup.add(telebot.types.InlineKeyboardButton(text='Русский', callback_data="ru"))
     markup.add(telebot.types.InlineKeyboardButton(text='English', callback_data="en"))
     newuser = User(user_id=message.chat.id, username=message.chat.username, first_name=message.chat.first_name, last_name=message.chat.last_name)
-    exists = database.session.query(database.exists().where(newuser.user_id == message.chat.id)).scalar()
+    exists = User.query.filter_by(user_id=exists.user_id).get()
     print(exists)
-    if exists is True:
+    if exists is None:
+        db.session.add(newuser)
+        db.session.commit()
         user.clear()
     else:
-        database.session.add(newuser)
-        database.session.commit()
         user.clear()
 
 
@@ -153,3 +152,5 @@ def webhook():
 
 if __name__ == "__main__":
     server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+    db.init_app(server)
+
