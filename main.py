@@ -32,7 +32,7 @@ database = SQLAlchemy(server)
 bot.set_update_listener(listener)
 
 class User(database.Model):
-    id = database.Column(database.Integer, primary_key=True)
+    user_id = database.Column(database.Integer, primary_key=True)
     username = database.Column(database.String, unique=True)
     first_name = database.Column(database.String, unique=False)
     last_name = database.Column(database.String, unique=False)
@@ -47,7 +47,7 @@ def start_message(message):
     markup.add(telebot.types.InlineKeyboardButton(text='Azərbaycan', callback_data="az"))
     markup.add(telebot.types.InlineKeyboardButton(text='Русский', callback_data="ru"))
     markup.add(telebot.types.InlineKeyboardButton(text='English', callback_data="en"))
-    newuser = User(id=message.chat.id, username=message.chat.username, first_name=message.chat.first_name, last_name=message.chat.last_name)
+    newuser = User(user_id=message.chat.id, username=message.chat.username, first_name=message.chat.first_name, last_name=message.chat.last_name)
     exists = database.session.query(database.exists().where(User.id == message.chat.id)).scalar()
     print(exists)
     if exists is True:
