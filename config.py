@@ -2,6 +2,8 @@
 
 #Bot token
 TOKEN = "900555854:AAGl6LXOB_ID82M8bFepSV7eUnGbzMI0Lk8" #testbot token
+db = "postgres://hcvxqacgcfcwlq:a3b2574c302ae00f0f317dcae258616ef941cf66b6957809a783003e10fd73a2@ec2-54-195-247-108.eu-west-1.compute.amazonaws.com:5432/ddupt842p792lv"
+
 
 #Messages
 

@@ -1,0 +1,69 @@
+INFO:werkzeug:127.0.0.1 - - [15/May/2020 09:44:23] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [15/May/2020 09:44:24] "GET /favicon.ico HTTP/1.1" 404 -
+ERROR:TeleBot:ApiException occurred, args=('A request to the Telegram API was unsuccessful. The server returned HTTP 409 Conflict. Response body:\n[b\'{"ok":false,"error_code":409,"description":"Conflict: can\\\'t use getUpdates method while webhook is active; use deleteWebhook to delete the webhook first"}\']',)
+Traceback (most recent call last):
+  File "C:\Users\sahmadpur\AppData\Local\Programs\Python\Python38-32\lib\site-packages\telebot\util.py", line 60, in run
+    task(*args, **kwargs)
+  File "C:\Users\sahmadpur\AppData\Local\Programs\Python\Python38-32\lib\site-packages\telebot\__init__.py", line 279, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1), timeout=timeout)
+  File "C:\Users\sahmadpur\AppData\Local\Programs\Python\Python38-32\lib\site-packages\telebot\__init__.py", line 249, in get_updates
+    json_updates = apihelper.get_updates(self.token, offset, limit, timeout, allowed_updates)
+  File "C:\Users\sahmadpur\AppData\Local\Programs\Python\Python38-32\lib\site-packages\telebot\apihelper.py", line 194, in get_updates
+    return _make_request(token, method_url, params=payload)
+  File "C:\Users\sahmadpur\AppData\Local\Programs\Python\Python38-32\lib\site-packages\telebot\apihelper.py", line 60, in _make_request
+    return _check_result(method_name, result)['result']
+  File "C:\Users\sahmadpur\AppData\Local\Programs\Python\Python38-32\lib\site-packages\telebot\apihelper.py", line 79, in _check_result
+    raise ApiException(msg, method_name, result)
+telebot.apihelper.ApiException: A request to the Telegram API was unsuccessful. The server returned HTTP 409 Conflict. Response body:
+[b'{"ok":false,"error_code":409,"description":"Conflict: can\'t use getUpdates method while webhook is active; use deleteWebhook to delete the webhook first"}']
+
+ERROR:TeleBot:A request to the Telegram API was unsuccessful. The server returned HTTP 409 Conflict. Response body:
+[b'{"ok":false,"error_code":409,"description":"Conflict: can\'t use getUpdates method while webhook is active; use deleteWebhook to delete the webhook first"}']
+ERROR:TeleBot:ApiException occurred, args=('A request to the Telegram API was unsuccessful. The server returned HTTP 409 Conflict. Response body:\n[b\'{"ok":false,"error_code":409,"description":"Conflict: can\\\'t use getUpdates method while webhook is active; use deleteWebhook to delete the webhook first"}\']',)
+Traceback (most recent call last):
+  File "C:\Users\sahmadpur\AppData\Local\Programs\Python\Python38-32\lib\site-packages\telebot\util.py", line 60, in run
+    task(*args, **kwargs)
+  File "C:\Users\sahmadpur\AppData\Local\Programs\Python\Python38-32\lib\site-packages\telebot\__init__.py", line 279, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1), timeout=timeout)
+  File "C:\Users\sahmadpur\AppData\Local\Programs\Python\Python38-32\lib\site-packages\telebot\__init__.py", line 249, in get_updates
+    json_updates = apihelper.get_updates(self.token, offset, limit, timeout, allowed_updates)
+  File "C:\Users\sahmadpur\AppData\Local\Programs\Python\Python38-32\lib\site-packages\telebot\apihelper.py", line 194, in get_updates
+    return _make_request(token, method_url, params=payload)
+  File "C:\Users\sahmadpur\AppData\Local\Programs\Python\Python38-32\lib\site-packages\telebot\apihelper.py", line 60, in _make_request
+    return _check_result(method_name, result)['result']
+  File "C:\Users\sahmadpur\AppData\Local\Programs\Python\Python38-32\lib\site-packages\telebot\apihelper.py", line 79, in _check_result
+    raise ApiException(msg, method_name, result)
+telebot.apihelper.ApiException: A request to the Telegram API was unsuccessful. The server returned HTTP 409 Conflict. Response body:
+[b'{"ok":false,"error_code":409,"description":"Conflict: can\'t use getUpdates method while webhook is active; use deleteWebhook to delete the webhook first"}']
+
+ERROR:TeleBot:A request to the Telegram API was unsuccessful. The server returned HTTP 409 Conflict. Response body:
+[b'{"ok":false,"error_code":409,"description":"Conflict: can\'t use getUpdates method while webhook is active; use deleteWebhook to delete the webhook first"}']
+ERROR:TeleBot:ApiException occurred, args=('A request to the Telegram API was unsuccessful. The server returned HTTP 409 Conflict. Response body:\n[b\'{"ok":false,"error_code":409,"description":"Conflict: can\\\'t use getUpdates method while webhook is active; use deleteWebhook to delete the webhook first"}\']',)
+Traceback (most recent call last):
+  File "C:\Users\sahmadpur\AppData\Local\Programs\Python\Python38-32\lib\site-packages\telebot\util.py", line 60, in run
+    task(*args, **kwargs)
+  File "C:\Users\sahmadpur\AppData\Local\Programs\Python\Python38-32\lib\site-packages\telebot\__init__.py", line 279, in __retrieve_updates
+    updates = self.get_updates(offset=(self.last_update_id + 1), timeout=timeout)
+  File "C:\Users\sahmadpur\AppData\Local\Programs\Python\Python38-32\lib\site-packages\telebot\__init__.py", line 249, in get_updates
+    json_updates = apihelper.get_updates(self.token, offset, limit, timeout, allowed_updates)
+  File "C:\Users\sahmadpur\AppData\Local\Programs\Python\Python38-32\lib\site-packages\telebot\apihelper.py", line 194, in get_updates
+    return _make_request(token, method_url, params=payload)
+  File "C:\Users\sahmadpur\AppData\Local\Programs\Python\Python38-32\lib\site-packages\telebot\apihelper.py", line 60, in _make_request
+    return _check_result(method_name, result)['result']
+  File "C:\Users\sahmadpur\AppData\Local\Programs\Python\Python38-32\lib\site-packages\telebot\apihelper.py", line 79, in _check_result
+    raise ApiException(msg, method_name, result)
+telebot.apihelper.ApiException: A request to the Telegram API was unsuccessful. The server returned HTTP 409 Conflict. Response body:
+[b'{"ok":false,"error_code":409,"description":"Conflict: can\'t use getUpdates method while webhook is active; use deleteWebhook to delete the webhook first"}']
+
+ERROR:TeleBot:A request to the Telegram API was unsuccessful. The server returned HTTP 409 Conflict. Response body:
+[b'{"ok":false,"error_code":409,"description":"Conflict: can\'t use getUpdates method while webhook is active; use deleteWebhook to delete the webhook first"}']
+ERROR:TeleBot:ValueError occurred, args=('Lang not in lang_list [az,ru,en]',)
+Traceback (most recent call last):
+  File "C:\Users\sahmadpur\AppData\Local\Programs\Python\Python38-32\lib\site-packages\telebot\util.py", line 60, in run
+    task(*args, **kwargs)
+  File "mianold.py", line 94, in word_search
+    second_answer = sp.dict_search(word=message.text, lang= cd)
+  File "C:\Users\sahmadpur\Desktop\Projects\bilbotweb\search_parser.py", line 24, in dict_search
+    raise ValueError("Lang not in lang_list [az,ru,en]")
+ValueError: Lang not in lang_list [az,ru,en]
+

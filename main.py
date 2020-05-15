@@ -1,30 +1,61 @@
 import os
 from flask import Flask, request
+from flask_sqlalchemy import SQLAlchemy
 import telebot
 import config
 import search_parser as sp
 from search_parser import word_info, word_list
 import time
-import logging
 
 
 knownUsers = []
 userStep = {}
 
+def listener(messages):
+    """
+    When new messages arrive TeleBot will call this function.
+    """
+    for m in messages:
+        if m.content_type == 'text' or "pinned_message":
+            # print the sent message to the console and save to file
+            t = time.localtime()
+            current_time = time.strftime("%d %b %Y %H:%M:%S", t)
+            print(str(current_time) + " " + str(m.chat.first_name) + " [" + str(m.chat.id) + "]: " + str(m.text))
+
+
 
 
 bot = telebot.TeleBot(config.TOKEN)
 server = Flask(__name__)
-logging.basicConfig(level=logging.INFO, filename="sys.log")
+server.config["SQLALCHEMY_DATABASE_URI"] = config.db
+database = SQLAlchemy(server)
+bot.set_update_listener(listener)
+
+class User(database.Model):
+    user_id = database.Column(database.Integer, primary_key=True)
+    username = database.Column(database.String, unique=True)
+    first_name = database.Column(database.String, unique=False)
+    last_name = database.Column(database.String, unique=False)
+
+
 
 
 @bot.message_handler(commands=['start'])
-def start_message(m):
-    cid = m.chat.id
+def start_message(message):
+    cid = message.chat.id
     markup = telebot.types.InlineKeyboardMarkup()
     markup.add(telebot.types.InlineKeyboardButton(text='Azərbaycan', callback_data="az"))
     markup.add(telebot.types.InlineKeyboardButton(text='Русский', callback_data="ru"))
     markup.add(telebot.types.InlineKeyboardButton(text='English', callback_data="en"))
+    newuser = User(user_id=message.chat.id, username=message.chat.username, first_name=message.chat.first_name, last_name=message.chat.last_name)
+    database.session.add(newuser)
+    database.session.commit()
+    user.clear()
+
+
+
+
+
     if cid not in knownUsers:
         knownUsers.append(cid)
         userStep[cid] = ""
@@ -102,23 +133,6 @@ def word_search(message):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @server.route('/' + config.TOKEN, methods=['POST'])
 def getMessage():
     bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
@@ -128,7 +142,6 @@ def getMessage():
 @server.route("/")
 def webhook():
     bot.remove_webhook()
-    print("Bura girdi")
     bot.set_webhook(url='https://bilbotweb.herokuapp.com/' + config.TOKEN)
     return "!", 200
 
