@@ -13,9 +13,6 @@ no_start = "Zəhmət olmasa ilk öncə /start komandasından istifadə edin!"
 
 
 none_text = {
-    "none_az" : "Mən yalnız sözləri axtara bilirəm.",
-    "none_ru" : "Я могу искать только слова.",
-    "none_en" : "I can only search for words.",
     "none_scr_id" : "CAACAgIAAxkBAAILTF5FEjDaUtAO2n0qlhh9ZfDkcv_oAAJFAAMh8AQcVEccChUEGqEYBA"
     }
 

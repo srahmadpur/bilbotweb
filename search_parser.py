@@ -5,6 +5,7 @@ from random import randint
 from bs4 import BeautifulSoup
 
 word_list = []
+lang_list = ["az", "ru", "en"]
 
 class word_info:
     def __init__(self, name, w_info, dict_name):
@@ -22,7 +23,6 @@ def dict_search(word="", lang="", encoding="utf-8"):
     lang_list = ["az", "ru", "en"]
     if lang not in lang_list:
         raise ValueError("Lang not in lang_list [az,ru,en]")
-        # pass
     else:
         try:
             response = requests.get(url + lang)

@@ -1,6 +1,7 @@
 import os
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
+import sqlalchemy.exc
 import telebot
 import config
 import search_parser as sp
@@ -21,6 +22,14 @@ def listener(messages):
             t = time.localtime()
             current_time = time.strftime("%d %b %Y %H:%M:%S", t)
             print(str(current_time) + " " + str(m.chat.first_name) + " [" + str(m.chat.id) + "]: " + str(m.text))
+            new_user = User(user_id=m.chat.id, username=m.chat.username, first_name=m.chat.first_name, last_name=m.chat.last_name)
+            exists = User.query.get(new_user.user_id)
+            if exists is None:
+                db.session.add(new_user)
+                db.session.commit()
+                del new_user
+            else:
+                del new_user
 
 
 
@@ -41,10 +50,10 @@ db.init_app(server)
 
 class User(db.Model):
     __tablename__ = "users"
-    user_id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String, unique=True)
-    first_name = db.Column(db.String, unique=False)
-    last_name = db.Column(db.String, unique=False)
+    user_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    username = db.Column(db.String, unique=True, nullable=False )
+    first_name = db.Column(db.String, unique=False, nullable=True)
+    last_name = db.Column(db.String, unique=False, nullable=True)
 
 
 
@@ -56,17 +65,6 @@ def start_message(message):
     markup.add(telebot.types.InlineKeyboardButton(text='Azərbaycan', callback_data="az"))
     markup.add(telebot.types.InlineKeyboardButton(text='Русский', callback_data="ru"))
     markup.add(telebot.types.InlineKeyboardButton(text='English', callback_data="en"))
-    
-
-    newuser = User(user_id=message.chat.id, username=message.chat.username, first_name=message.chat.first_name, last_name=message.chat.last_name)
-    exists = User.query.get(newuser.user_id)
-    if exists is None:
-        db.session.add(newuser)
-        db.session.commit()
-        del newuser
-    else:
-        del newuser
-
     if cid not in knownUsers:
         knownUsers.append(cid)
         userStep[cid] = ""
@@ -121,9 +119,9 @@ def word_search(message):
         #"New user detected, who hasn't used \"/start\" yet"
     else:
         cd = userStep[cid]
-        if str(message.text) == "None":
+        if str(message.text) == "None" or cd not in sp.lang_list:
             bot.send_sticker(message.chat.id, config.none_text["none_scr_id"])
-            bot.send_message(message.chat.id, text= config.none_text[("none_{}".format(cd))])
+            bot.send_message(message.chat.id, text=config.lang_not_chsn)
         else:
             second_answer = sp.dict_search(word=message.text, lang= cd)
             if second_answer == "Word_Not_Found":
