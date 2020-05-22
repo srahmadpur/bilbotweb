@@ -2,7 +2,7 @@
 
 #Bot token
 TOKEN = "1067624262:AAH9TFrJnoFw-wYH3qmc800Gfr6cdiPuFyE" #testbot token
-db_url = "postgres://hcvxqacgcfcwlq:a3b2574c302ae00f0f317dcae258616ef941cf66b6957809a783003e10fd73a2@ec2-54-195-247-108.eu-west-1.compute.amazonaws.com:5432/ddupt842p792lv"
+db_url = "postgres://ksiewdkynreeke:02661f9c7b99af0aab8d5dc5c50ec7388a8325ea0f85cad9254d3501682bcffd@ec2-54-247-122-209.eu-west-1.compute.amazonaws.com:5432/d31n2lplt1q8r6"
 
 
 #Messages
