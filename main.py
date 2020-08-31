@@ -11,6 +11,7 @@ import time
 
 knownUsers = []
 userStep = {}
+msg = None
 
 def listener(messages):
     """
@@ -62,31 +63,31 @@ class User(db.Model):
 def start_message(message):
     cid = message.chat.id
     markup = telebot.types.InlineKeyboardMarkup()
-    markup.add(telebot.types.InlineKeyboardButton(text='Azərbaycan', callback_data="az"))
-    markup.add(telebot.types.InlineKeyboardButton(text='Русский', callback_data="ru"))
-    markup.add(telebot.types.InlineKeyboardButton(text='English', callback_data="en"))
+    markup.add(telebot.types.InlineKeyboardButton(text='Azərbaycan 🇦🇿', callback_data="az"))
+    markup.add(telebot.types.InlineKeyboardButton(text='Русский 🇷🇺', callback_data="ru"))
+    markup.add(telebot.types.InlineKeyboardButton(text='English 🇺🇸', callback_data="en"))
     if cid not in knownUsers:
         knownUsers.append(cid)
         userStep[cid] = ""
-        bot.send_message(cid, text=config.Lang_chose_az, reply_markup=markup)
+        global msg
+        msg = bot.send_message(cid, text=config.Lang_chose_az, reply_markup=markup)
     else:
-        bot.send_message(cid, text=config.Query_handler["fa_{}".format(userStep[cid])])
+         bot.send_message(cid, text=config.Query_handler["fa_{}".format(userStep[cid])])
+    
 
 
-@bot.message_handler(commands=["lang"])
+
+@bot.message_handler(commands=["lang", "🌎"])
 def change_lang(m):
     cid = m.chat.id
     markup = telebot.types.InlineKeyboardMarkup()
-    markup.add(telebot.types.InlineKeyboardButton(text='Azərbaycan', callback_data="az"))
-    markup.add(telebot.types.InlineKeyboardButton(text='Русский', callback_data="ru"))
-    markup.add(telebot.types.InlineKeyboardButton(text='English', callback_data="en"))
+    markup.add(telebot.types.InlineKeyboardButton(text='Azərbaycan 🇦🇿', callback_data="az"))
+    markup.add(telebot.types.InlineKeyboardButton(text='Русский 🇷🇺', callback_data="ru"))
+    markup.add(telebot.types.InlineKeyboardButton(text='English 🇺🇸', callback_data="en"))
     if cid not in knownUsers:
         knownUsers.append(cid)
-        bot.send_message(cid, text=config.Lang_chose_az, reply_markup=markup)
-    else:
-        bot.send_message(cid, text=config.Lang_chose_az, reply_markup=markup)
-
-
+    global msg
+    msg = bot.send_message(cid, text=config.Lang_chose_az, reply_markup=markup)
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -105,7 +106,10 @@ def query_handler(call):
         cd = call.data
         userStep.update({call.message.chat.id: cd})
         first_answer = config.Query_handler["fa_en"]
-    bot.send_message(call.message.chat.id, first_answer)
+        global msg
+    bot.edit_message_text(text=first_answer , chat_id=msg.chat.id, message_id=msg.message_id)
+    msg = None
+    # bot.send_message(call.message.chat.id, first_answer)
 
 
 
@@ -157,3 +161,6 @@ def webhook():
 
 if __name__ == "__main__":
     server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+
+
+# bot.polling() #for local testing
