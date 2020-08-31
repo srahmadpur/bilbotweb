@@ -1,8 +1,8 @@
 
 
 #Bot token
-# TOKEN = "1067624262:AAH9TFrJnoFw-wYH3qmc800Gfr6cdiPuFyE" #Prod Token
-TOKEN = "900555854:AAHN0C6be0zGVU8wlzJQnH7z_xc_y1AOcFc" #Test token
+TOKEN = "1067624262:AAH9TFrJnoFw-wYH3qmc800Gfr6cdiPuFyE" #Prod Token
+#TOKEN = "900555854:AAHN0C6be0zGVU8wlzJQnH7z_xc_y1AOcFc" #Test token
 
 db_url = "postgres://ksiewdkynreeke:02661f9c7b99af0aab8d5dc5c50ec7388a8325ea0f85cad9254d3501682bcffd@ec2-54-247-122-209.eu-west-1.compute.amazonaws.com:5432/d31n2lplt1q8r6"
 
